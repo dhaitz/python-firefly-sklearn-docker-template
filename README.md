@@ -1,5 +1,3 @@
-**Originally from https://github.com/Soluto/python-flask-sklearn-docker-template**
-
 # python-firefly-docker-sklearn-template
 A simple example of python api for real time machine learning.
 Offline, a simple linear regression model is created and saved on disk.
