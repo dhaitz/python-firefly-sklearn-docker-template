@@ -1,33 +1,48 @@
-## python-flask-docker-sklearn-template
+**Originally from https://github.com/Soluto/python-flask-sklearn-docker-template**
+
+# python-firefly-docker-sklearn-template
 A simple example of python api for real time machine learning.
-On init, a simple linear regression model is created and saved on machine. On request arrival for prediction, the simple model is loaded and returning prediction.    
+Offline, a simple linear regression model is created and saved on disk.
+In the running container, on request via the prediction API, the simple model is loaded and returns a prediction.
 For more information read [this post](https://blog.solutotlv.com/deployed-scikit-learn-model-flask-docker/?utm_source=Github&utm_medium=python-flask-sklearn-docker-template)
 
 
-# requirements  
-docker installed
+Requirements: docker installed
 
 
-# Run on docker - local 
-docker build . -t {some tag name}  -f ./Dockerfile_local  
-detached : docker run -p 3000:5000 -d {some tag name}  
-interactive (recommended for debug): docker run -p 3000:5000 -it {some tag name}  
+## Train model and copy model file to docker folder
+
+    cd model-training/
+    ./train_model.py
+    mv some_model.pkl ../docker/
+    cd ..
+    
+
+## Build image
+
+    cd docker/
+    docker build . -t test_project
+
+## Start container  
+
+Detached mode:
+
+     docker run -p 3000:5000 -d test_project
+
+Interactive mode (for debug):
+
+    docker run -p 3000:5000 -it test_project
 
 
-# Run on docker - production 
-Using uWSGI and nginx for production  
-docker build . -t {some tag name}   
-detached : docker run -p 3000:80 -d {some tag name}  
-interactive (recommended for debug): docker run -p 3000:80 -it {some tag name}  
+## Obtain prediction via API  
+Create a test file:
 
+    echo '{"features": [[1, 2, 3]]}' > dummy-input.json
+    
+Send data to the running container and obtain result:
+    
+    curl -v -d '{"features": [[1,2,3]]}' http://127.0.0.1:3000/predict
+    
+Result:
 
-# Run on local computer
-python -m venv env  
-source env/bin/activate  
-python -m pip install -r ./requirements.txt  
-python main.py  
-
-
-# Use sample api  
-127.0.0.1:3000/isAlive  
-127.0.0.1:3000/prediction/api/v1.0/some_prediction?f1=4&f2=4&f3=4  
+    [0.4999999999999999]
