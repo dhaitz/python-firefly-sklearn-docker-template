@@ -3,13 +3,17 @@
 
 import pickle
 
-loaded_model = pickle.load(open('model.pkl', 'rb'))
+model = pickle.load(open('model.pkl', 'rb'))
 
 
 def predict(features):
+    return list(model.predict(features))
+
+
+def predict_extended(features):
     """Return prediction made from input and loaded model"""
     try:
-        prediction = loaded_model.predict(features)
+        prediction = model.predict(features)
         return list(prediction)
     except Exception as e:
         return "Error:" + str(e)
