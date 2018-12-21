@@ -13,7 +13,7 @@ def predict(features):
 def predict_extended(features):
     """Return prediction made from input and loaded model"""
     try:
-        prediction = model.predict(features)
-        return list(prediction)
+        prediction = model.predict([features])
+        return list(prediction)[0]
     except Exception as e:
         return "Error:" + str(e)

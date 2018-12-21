@@ -36,8 +36,8 @@ Interactive mode (for debug):
 
 Send data to the running container and obtain result:
     
-    curl -d '{"features": [[1,2,3]]}' http://127.0.0.1:3000/predict
+    curl -d '{"features": [1,2,3]}' http://127.0.0.1:3000/predict
     
 Result:
 
-    [0.4999999999999999]
+    0.4999999999999999
