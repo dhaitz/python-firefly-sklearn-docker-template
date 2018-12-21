@@ -33,13 +33,10 @@ Interactive mode (for debug):
 
 
 ## Obtain prediction via API  
-Create a test file:
 
-    echo '{"features": [[1, 2, 3]]}' > dummy-input.json
-    
 Send data to the running container and obtain result:
     
-    curl -v -d '{"features": [[1,2,3]]}' http://127.0.0.1:3000/predict
+    curl -d '{"features": [[1,2,3]]}' http://127.0.0.1:3000/predict
     
 Result:
 
